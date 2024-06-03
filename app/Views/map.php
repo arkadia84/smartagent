@@ -11,19 +11,29 @@
 </head>
 <body>
     <!-- Info Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal" id="info-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="info-modalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h1 class="modal-title fs-5" id="info-modalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="infoModalClose()"></button>
         </div>
-        <div class="modal-body">
-            ...
+        <div class="modal-body row">
+            <div class="col-12">
+                <img id="info-img" class="card-img-top">
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    SOLD
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+                </img>
+            </div>
+            <div class="col-12" id="info-category"></div>
+            <div class="col-3">Address: </div>
+            <div class="col-9" id="info-address">Address: </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Understood</button>
+            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+            <button type="button" class="btn control-btn btn-primary">Contact Agency</button>
         </div>
         </div>
     </div>

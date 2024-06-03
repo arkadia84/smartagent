@@ -21,4 +21,9 @@
             border-bottom-left-radius: 10px;
             background-color:var(--neutral1);border-color:var(--neutral1);
         }
+        /* info label style */
+        #info-img{
+            height:180px;
+            /* width:100%; */
+        }
 </style>

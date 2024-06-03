@@ -33,12 +33,17 @@
             map.flyTo({
                 center: [x,y],zoom: 16
             })
+        },
+        infoModalClose=()=>{
+            let infoModal=document.getElementById('info-modal')
+            infoModal.style.display = "none";
+            infoModal.className="modal fade";
         }
         // populate real estate list
         datasample.features.forEach(el => {
             let childEl=`<button onclick="goToPoint(`+el.properties.Longitude+`,`+el.properties.Latitude+`)" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="row">
-                                <div class="col-3"><img src="`+el.properties.Cover+`" class="card-img-top" alt="..."></div>
+                                <div class="col-3"><img src="`+el.properties.Pictures+`" class="card-img-top" alt="..."></div>
                                 <div class="col-9"><div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">`+el.properties.Title+`</h5>
                                     <small>3 days ago</small>
@@ -96,6 +101,34 @@
                     "circle-stroke-width": .5,
                     "circle-stroke-color":'#2C3E50'
                 }
+            })
+            map.on('click', function (e) {
+                let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate'] });
+                if (!features.length) {
+                    return;
+                }
+                let feature = features[0],infoPopup=document.getElementById('info-modal'),
+                title=document.getElementById('info-modalLabel'),image=document.getElementById('info-img'),
+                address=document.getElementById('info-address')
+                infoPopup.style.display = "block";
+                infoPopup.style.backgroundColor = 'rgba(0,0,0,0.5)';
+                infoPopup.className="modal fade show";
+                console.log(feature)
+                title.innerHTML=feature.properties.Title
+                image.src=feature.properties.Pictures
+                address.innerHTML=feature.properties.Address
+                document.getElementbyId('info-category').insertAdjacentHTML( 'beforeend', "<h5>"+feature.properties.Category+"</h5>" )
+                // Use Feature and put your code
+                // Populate the popup and set its coordinates
+                // based on the feature found.
+                // let popup = new maplibregl.Popup()
+                //     .setLngLat(feature.geometry.coordinates)
+                //     .setHTML(feature.properties.Title)
+                //     .addTo(map);
+            })
+            map.on('mousemove', function (e) {
+                let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate'] });
+                map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
             })
         })
  </script>
