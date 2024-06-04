@@ -26,4 +26,6 @@
             height:180px;
             /* width:100%; */
         }
+        /* control style*/
+        .maplibregl-ctrl-geolocate{display:none!important;}
 </style>
