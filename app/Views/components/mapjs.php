@@ -38,6 +38,15 @@
             let infoModal=document.getElementById('info-modal')
             infoModal.style.display = "none";
             infoModal.className="modal fade";
+        },
+        realEstateControl=()=>{
+            let nullSrc={
+            "type": "FeatureCollection",
+            "features": []}
+            map.getSource('real-estate')._data.features.length>0?map.getSource('real-estate').setData(nullSrc):map.getSource('real-estate').setData(datasample)
+        },
+        statisticsControl=()=>{
+
         }
         // populate real estate list
         datasample.features.forEach(el => {

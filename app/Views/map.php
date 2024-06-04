@@ -53,7 +53,7 @@
                 <div class="col-12"><h4>Map Panel Control</h4></div>
                 <div class="col-12 btn-group mb-4" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-primary control-btn" onclick="goHome()"><i class="bi bi-house-door-fill"></i></button>
-                    <button type="button" class="btn btn-primary control-btn"><i class="bi bi-geo-alt-fill"></i></button>
+                    <button type="button" class="btn btn-primary control-btn" onclick="realEstateControl()"><i class="bi bi-geo-alt-fill"></i></button>
                     <button type="button" class="btn btn-primary control-btn"><i class="bi bi-pie-chart-fill"></i></button>
                     <button type="button" class="btn btn-primary control-btn" onclick="goGeolocate()"><i class="bi bi-crosshair2"></i></button>
                 </div>
