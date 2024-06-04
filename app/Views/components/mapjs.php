@@ -172,14 +172,9 @@
                 title.innerHTML=feature.properties.Title
                 image.src=feature.properties.Pictures
                 address.innerHTML=feature.properties.Address
-                document.getElementbyId('info-category').insertAdjacentHTML( 'beforeend', "<h5>"+feature.properties.Category+"</h5>" )
-                // Use Feature and put your code
-                // Populate the popup and set its coordinates
-                // based on the feature found.
-                // let popup = new maplibregl.Popup()
-                //     .setLngLat(feature.geometry.coordinates)
-                //     .setHTML(feature.properties.Title)
-                //     .addTo(map);
+                document.getElementById('info-category').insertAdjacentHTML( 'beforeend', "<h5>"+feature.properties.Category+"</h5>" )
+                document.getElementById('info-land').innerHTML=feature.properties["Land (sqm)"]+" sqm"
+                document.getElementById('info-house').innerHTML=feature.properties["House (sqm)"]+" sqm"
             })
             map.on('mousemove', function (e) {
                 let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate'] });

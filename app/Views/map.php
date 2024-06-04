@@ -34,7 +34,12 @@
             </div>
             <div class="col-12" id="info-category"></div>
             <div class="col-3">Address: </div>
-            <div class="col-9" id="info-address">Address: </div>
+            <div class="col-9" id="info-address"></div>
+            <div class="col-12"><hr></div>
+            <div class="col-3">Land: </div>
+            <div class="col-3" id="info-land"></div>
+            <div class="col-3">House: </div>
+            <div class="col-3" id="info-house"></div>
         </div>
         <div class="modal-footer">
             <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
