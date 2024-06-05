@@ -47,22 +47,25 @@
         },
         statisticsControl=()=>{
 
+        },
+        populateList=(features)=>{
+            // populate real estate list
+            document.getElementById('real-estate-list').replaceChildren()
+            features.forEach(el => {
+                let childEl=`<button onclick="goToPoint(`+el.properties.Longitude+`,`+el.properties.Latitude+`)" class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="row">
+                                    <div class="col-3"><img src="`+el.properties.Pictures+`" class="card-img-top" alt="..."></div>
+                                    <div class="col-9"><div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">`+el.properties.Title+`</h5>
+                                        <small>3 days ago</small>
+                                    </div>
+                                    <p class="mb-1">Some placeholder content in a paragraph.</p>
+                                    <small>And some small print.</small></div>
+                                </div>     
+                            </button>`
+                document.getElementById('real-estate-list').insertAdjacentHTML( 'beforeend', childEl );
+            });  
         }
-        // populate real estate list
-        datasample.features.forEach(el => {
-            let childEl=`<button onclick="goToPoint(`+el.properties.Longitude+`,`+el.properties.Latitude+`)" class="list-group-item list-group-item-action" aria-current="true">
-                            <div class="row">
-                                <div class="col-3"><img src="`+el.properties.Pictures+`" class="card-img-top" alt="..."></div>
-                                <div class="col-9"><div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">`+el.properties.Title+`</h5>
-                                    <small>3 days ago</small>
-                                </div>
-                                <p class="mb-1">Some placeholder content in a paragraph.</p>
-                                <small>And some small print.</small></div>
-                            </div>     
-                        </button>`
-            document.getElementById('real-estate-list').insertAdjacentHTML( 'beforeend', childEl );
-        });
         // draw the map
         let map = new maplibregl.Map({
             container: 'map',
@@ -141,6 +144,7 @@
         );
         map.addControl(geolocate)
         // map on load function
+        // fetch('https://www.notion.so/nftydaddy/383f94eb39754b3bbd9130c8ad94cdc9?v=46e8bb0bc2f248b6b01cf994ab0cdb6b&pvs=4')
         map.on('load', () => {
             map.addSource('real-estate', {
                 'type': 'geojson',
@@ -157,6 +161,7 @@
                     "circle-stroke-color":'#2C3E50'
                 }
             })
+            populateList(datasample.features)
             map.on('click', function (e) {
                 let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate'] });
                 if (!features.length) {
@@ -176,9 +181,13 @@
                 document.getElementById('info-land').innerHTML=feature.properties["Land (sqm)"]+" sqm"
                 document.getElementById('info-house').innerHTML=feature.properties["House (sqm)"]+" sqm"
             })
-            map.on('mousemove', function (e) {
+            map.on('mousemove', (e)=>{
                 let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate'] });
                 map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+            })
+            map.on('moveend',(e)=>{
+                let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate']})
+                populateList(features)
             })
         })
  </script>
