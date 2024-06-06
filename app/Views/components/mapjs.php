@@ -144,11 +144,37 @@
         );
         map.addControl(geolocate)
         // map on load function
-        // fetch('https://www.notion.so/nftydaddy/383f94eb39754b3bbd9130c8ad94cdc9?v=46e8bb0bc2f248b6b01cf994ab0cdb6b&pvs=4')
+        fetch('https://www.notion.so/nftydaddy/383f94eb39754b3bbd9130c8ad94cdc9?v=46e8bb0bc2f248b6b01cf994ab0cdb6b&pvs=4',
+        {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer secret_vwAgGyHilU5tKExktYcYEj0ZRtyuC2sCoTClIxAcaPR`,
+                "Notion-Version": "2022-06-28",
+                "Content-Type": "application/json",
+            },
+            // body: JSON.stringify({grant_type: '"authorization_code"'})
+        }
+        ).then((resp)=>{
+            console.log(resp)
+        })
         map.on('load', () => {
             map.addSource('real-estate', {
                 'type': 'geojson',
                 'data': datasample
+            })
+            map.addSource('stats-grid',{
+                'type': 'geojson',
+                'data': grid
+            })
+            map.addLayer({
+                'id':'lyr-stats-grid',
+                'type':'fill',
+                'source':'stats-grid',
+                'layout': {},
+                'paint': {
+                    'fill-color': '#088',
+                    'fill-opacity': 0.3
+                }
             })
             map.addLayer({
                 'id': 'lyr-real-estate',
