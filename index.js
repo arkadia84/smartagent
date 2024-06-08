@@ -206,6 +206,12 @@
                 document.getElementById('info-category').insertAdjacentHTML( 'beforeend', "<h5>"+feature.properties.Category+"</h5>" )
                 document.getElementById('info-land').innerHTML=feature.properties["Land (sqm)"]+" sqm"
                 document.getElementById('info-house').innerHTML=feature.properties["House (sqm)"]+" sqm"
+                document.getElementById('info-pool').innerHTML=feature.properties["Pool size (sqm)"]+" sqm"
+                document.getElementById('info-price').innerHTML=feature.properties["Price/Year"]
+                document.getElementById('info-currency').innerHTML=feature.properties["Currency"]
+                document.getElementById('info-tol').innerHTML=feature.properties["Type of Lease"]
+                document.getElementById('info-link').setAttribute("href", feature.properties["Link"])
+                document.getElementById('info-location').setAttribute("href", feature.properties["Location link"])
             })
             map.on('mousemove', (e)=>{
                 let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate'] });
