@@ -1,7 +1,7 @@
 #-------------------------
 # Operating Specific Junk Files
 #-------------------------
-
+data/zonePlan.geojson
 # OS X
 .DS_Store
 .AppleDouble

@@ -28,3 +28,6 @@
         }
         /* control style*/
         .maplibregl-ctrl-geolocate{display:none!important;}
+        #real-estate-list{
+            overflow-y: scroll;height:60vh;
+        }

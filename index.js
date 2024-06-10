@@ -46,7 +46,16 @@
             map.getSource('real-estate')._data.features.length>0?map.getSource('real-estate').setData(nullSrc):map.getSource('real-estate').setData(datasample)
         },
         statisticsControl=()=>{
-
+            let nullSrc={
+            "type": "FeatureCollection",
+            "features": []}
+            map.getSource('stats-grid')._data.features.length>0?map.getSource('stats-grid').setData(nullSrc):map.getSource('stats-grid').setData(grid)
+        },
+        zonePlanControl=()=>{
+            let nullSrc={
+            "type": "FeatureCollection",
+            "features": []}
+            map.getSource('zone-plan')._data.features.length>0?map.getSource('zone-plan').setData(nullSrc):map.getSource('zone-plan').setData(zonePlan)
         },
         populateList=(features)=>{
             // populate real estate list
@@ -54,9 +63,9 @@
             features.forEach(el => {
                 let childEl=`<button onclick="goToPoint(`+el.properties.Longitude+`,`+el.properties.Latitude+`)" class="list-group-item list-group-item-action" aria-current="true">
                                 <div class="row">
-                                    <div class="col-3"><img src="`+el.properties.Pictures+`" class="card-img-top" alt="..."></div>
+                                    <div class="col-3"><img src="`+el.properties.Cover+`" class="card-img-top" alt="..."></div>
                                     <div class="col-9"><div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">`+el.properties.Title+`</h5>
+                                        <p class="mb-1"><b>`+el.properties.Title+`</b></p>
                                         <small>3 days ago</small>
                                     </div>
                                     <p class="mb-1">Some placeholder content in a paragraph.</p>
@@ -144,7 +153,7 @@
         );
         map.addControl(geolocate)
         // map on load function
-        fetch('https://www.notion.so/nftydaddy/383f94eb39754b3bbd9130c8ad94cdc9?v=46e8bb0bc2f248b6b01cf994ab0cdb6b&pvs=4',
+        fetch('https://www.notion.com/nftydaddy/383f94eb39754b3bbd9130c8ad94cdc9?v=46e8bb0bc2f248b6b01cf994ab0cdb6b&pvs=4',
         {
             method: 'GET',
             headers: {
@@ -166,6 +175,10 @@
                 'type': 'geojson',
                 'data': grid
             })
+            // map.addSource('zone-plan',{
+            //     'type': 'geojson',
+            //     'data': zonePlan
+            // })
             map.addLayer({
                 'id':'lyr-stats-grid',
                 'type':'fill',
@@ -176,15 +189,25 @@
                     'fill-opacity': 0.3
                 }
             })
+            // map.addLayer({
+            //     'id': 'lyr-real-estate',
+            //     'type': 'circle',
+            //     'source': 'real-estate',
+            //     "paint": {
+            //         "circle-radius": 6,
+            //         "circle-color": '#1ABC9C',
+            //         "circle-stroke-width": .5,
+            //         "circle-stroke-color":'#2C3E50'
+            //     }
+            // })
             map.addLayer({
-                'id': 'lyr-real-estate',
-                'type': 'circle',
-                'source': 'real-estate',
-                "paint": {
-                    "circle-radius": 6,
-                    "circle-color": '#1ABC9C',
-                    "circle-stroke-width": .5,
-                    "circle-stroke-color":'#2C3E50'
+                'id': 'lyr-zone-plan',
+                'type':'fill',
+                'source':'zone-plan',
+                'layout': {},
+                'paint': {
+                    'fill-color': '#F3E37C',
+                    'fill-opacity': 0.3
                 }
             })
             populateList(datasample.features)
@@ -201,7 +224,7 @@
                 infoPopup.className="modal fade show";
                 console.log(feature)
                 title.innerHTML=feature.properties.Title
-                image.src=feature.properties.Pictures
+                image.src=feature.properties.Cover
                 address.innerHTML=feature.properties.Address
                 document.getElementById('info-category').insertAdjacentHTML( 'beforeend', "<h5>"+feature.properties.Category+"</h5>" )
                 document.getElementById('info-land').innerHTML=feature.properties["Land (sqm)"]+" sqm"
