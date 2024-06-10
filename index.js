@@ -175,10 +175,10 @@
                 'type': 'geojson',
                 'data': grid
             })
-            // map.addSource('zone-plan',{
-            //     'type': 'geojson',
-            //     'data': zonePlan
-            // })
+            map.addSource('zone-plan',{
+                'type': 'geojson',
+                'data': zonePlan
+            })
             map.addLayer({
                 'id':'lyr-stats-grid',
                 'type':'fill',
@@ -200,16 +200,17 @@
                     "circle-stroke-color":'#2C3E50'
                 }
             })
-            // map.addLayer({
-            //     'id': 'lyr-zone-plan',
-            //     'type':'fill',
-            //     'source':'zone-plan',
-            //     'layout': {},
-            //     'paint': {
-            //         'fill-color': '#F3E37C',
-            //         'fill-opacity': 0.3
-            //     }
-            // })
+            map.addLayer({
+                'id': 'lyr-zone-plan',
+                'type':'fill',
+                'source':'zone-plan',
+                'layout': {},
+                'paint': {
+                    'fill-color': '#F3E37C',
+                    'fill-opacity': 0.3,
+                    'fill-outline-color':'black'
+                }
+            })
             populateList(datasample.features)
             map.on('click', function (e) {
                 let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate'] });
@@ -230,8 +231,8 @@
                 document.getElementById('info-land').innerHTML=feature.properties["Land (sqm)"]+" sqm"
                 document.getElementById('info-house').innerHTML=feature.properties["House (sqm)"]+" sqm"
                 document.getElementById('info-pool').innerHTML=feature.properties["Pool size (sqm)"]+" sqm"
-                document.getElementById('info-price').innerHTML=feature.properties["Price/Year"]
-                document.getElementById('info-currency').innerHTML=feature.properties["Currency"]
+                document.getElementById('info-price').innerHTML=feature.properties["Currency"]+' '+feature.properties["Price/Year"]
+                // document.getElementById('info-currency').innerHTML=feature.properties["Currency"]
                 document.getElementById('info-tol').innerHTML=feature.properties["Type of Lease"]
                 document.getElementById('info-link').setAttribute("href", feature.properties["Link"])
                 document.getElementById('info-location').setAttribute("href", feature.properties["Location link"])
