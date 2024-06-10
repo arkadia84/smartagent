@@ -189,27 +189,27 @@
                     'fill-opacity': 0.3
                 }
             })
-            // map.addLayer({
-            //     'id': 'lyr-real-estate',
-            //     'type': 'circle',
-            //     'source': 'real-estate',
-            //     "paint": {
-            //         "circle-radius": 6,
-            //         "circle-color": '#1ABC9C',
-            //         "circle-stroke-width": .5,
-            //         "circle-stroke-color":'#2C3E50'
-            //     }
-            // })
             map.addLayer({
-                'id': 'lyr-zone-plan',
-                'type':'fill',
-                'source':'zone-plan',
-                'layout': {},
-                'paint': {
-                    'fill-color': '#F3E37C',
-                    'fill-opacity': 0.3
+                'id': 'lyr-real-estate',
+                'type': 'circle',
+                'source': 'real-estate',
+                "paint": {
+                    "circle-radius": 6,
+                    "circle-color": '#1ABC9C',
+                    "circle-stroke-width": .5,
+                    "circle-stroke-color":'#2C3E50'
                 }
             })
+            // map.addLayer({
+            //     'id': 'lyr-zone-plan',
+            //     'type':'fill',
+            //     'source':'zone-plan',
+            //     'layout': {},
+            //     'paint': {
+            //         'fill-color': '#F3E37C',
+            //         'fill-opacity': 0.3
+            //     }
+            // })
             populateList(datasample.features)
             map.on('click', function (e) {
                 let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate'] });
