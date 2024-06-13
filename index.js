@@ -206,7 +206,7 @@
                 'source':'zone-plan',
                 'layout': {},
                 'paint': {
-                    'fill-color': '#F3E37C',
+                    'fill-color': ['get','color'],
                     'fill-opacity': 0.3,
                     'fill-outline-color':'black'
                 }

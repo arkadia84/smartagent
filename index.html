@@ -23,7 +23,7 @@
             <h1 class="modal-title fs-5" id="info-modalLabel">Modal title</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="infoModalClose()"></button>
         </div>
-        <div class="modal-body row">
+        <div class="modal-body row" style="overflow-y:scroll;max-height:80vh;">
             <div class="col-12">
                 <img id="info-img" class="card-img-top">
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -49,6 +49,29 @@
             <div class="col-3" id="info-house"></div>
             <div class="col-3">Pool: </div>
             <div class="col-3" id="info-pool"></div>
+            <div class="col-12"><hr><h5>Zone Regulation</h5></hr></div>
+            <div class="col-12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                          <th scope="row">Zone Plan</th>
+                          <td id="info-zoneplan"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Allowed Activities</th>
+                            <td id="info-allowed"></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Conditional Activities</th>
+                            <td id="info-conditional"></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Prohibited Activities</th>
+                            <td id="info-prohibited"></td>
+                          </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="modal-footer">
             <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
