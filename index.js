@@ -59,17 +59,17 @@
         },
         populateList=(features)=>{
             // populate real estate list
+            document.getElementById('real-estate-count').innerHTML=features.length+" real estate(s) found!"
             document.getElementById('real-estate-list').replaceChildren()
             features.forEach(el => {
-                let childEl=`<button onclick="goToPoint(`+el.properties.Longitude+`,`+el.properties.Latitude+`)" class="list-group-item list-group-item-action" aria-current="true">
+                let childEl=`<button onclick="goToPoint(`+el.geometry.coordinates[0].toString()+`,`+el.geometry.coordinates[1].toString()+`)" class="list-group-item list-group-item-action" aria-current="true">
                                 <div class="row">
                                     <div class="col-3"><img src="`+el.properties.Cover+`" class="card-img-top" alt="..."></div>
                                     <div class="col-9"><div class="d-flex w-100 justify-content-between">
                                         <p class="mb-1"><b>`+el.properties.Title+`</b></p>
-                                        <small>3 days ago</small>
+                                        <small>`+el.properties.Status+`</small>
                                     </div>
-                                    <p class="mb-1">Some placeholder content in a paragraph.</p>
-                                    <small>And some small print.</small></div>
+                                    <p class="mb-1 popup-text">`+el.properties.Address+`</p>
                                 </div>     
                             </button>`
                 document.getElementById('real-estate-list').insertAdjacentHTML( 'beforeend', childEl );
@@ -152,20 +152,6 @@
             }),'top-left'
         );
         map.addControl(geolocate)
-        // map on load function
-        fetch('https://www.notion.com/nftydaddy/383f94eb39754b3bbd9130c8ad94cdc9?v=46e8bb0bc2f248b6b01cf994ab0cdb6b&pvs=4',
-        {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer secret_vwAgGyHilU5tKExktYcYEj0ZRtyuC2sCoTClIxAcaPR`,
-                "Notion-Version": "2022-06-28",
-                "Content-Type": "application/json",
-            },
-            // body: JSON.stringify({grant_type: '"authorization_code"'})
-        }
-        ).then((resp)=>{
-            console.log(resp)
-        })
         map.on('load', () => {
             map.addSource('real-estate', {
                 'type': 'geojson',
@@ -194,9 +180,9 @@
                 'type': 'circle',
                 'source': 'real-estate',
                 "paint": {
-                    "circle-radius": 6,
+                    "circle-radius": 3,
                     "circle-color": '#1ABC9C',
-                    "circle-stroke-width": .5,
+                    "circle-stroke-width": 1,
                     "circle-stroke-color":'#2C3E50'
                 }
             })
@@ -211,7 +197,7 @@
                     'fill-outline-color':'black'
                 }
             })
-            populateList(datasample.features)
+            // populateList(datasample.features)
             map.on('click', function (e) {
                 let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate'] });
                 if (!features.length) {
@@ -227,15 +213,30 @@
                 title.innerHTML=feature.properties.Title
                 image.src=feature.properties.Cover
                 address.innerHTML=feature.properties.Address
-                document.getElementById('info-category').insertAdjacentHTML( 'beforeend', "<h5>"+feature.properties.Category+"</h5>" )
+                document.getElementById('info-status').innerHTML=feature.properties.Status.toUpperCase()
+                if(feature.properties.Status=='Available'){
+                    document.getElementById('info-status').style.backgroundColor="#1ABC9C"
+                }else{
+                    document.getElementById('info-status').style.backgroundColor="#dc3545"
+                }
+                document.getElementById('info-category').innerHTML=feature.properties.category
                 document.getElementById('info-land').innerHTML=feature.properties["Land (sqm)"]+" sqm"
                 document.getElementById('info-house').innerHTML=feature.properties["House (sqm)"]+" sqm"
                 document.getElementById('info-pool').innerHTML=feature.properties["Pool size (sqm)"]+" sqm"
-                document.getElementById('info-price').innerHTML=feature.properties["Currency"]+' '+feature.properties["Price/Year"]
-                // document.getElementById('info-currency').innerHTML=feature.properties["Currency"]
+                document.getElementById('info-price').innerHTML=feature.properties["Currency"]+' '+feature.properties["harga"]
                 document.getElementById('info-tol').innerHTML=feature.properties["Type of Lease"]
                 document.getElementById('info-link').setAttribute("href", feature.properties["Link"])
                 document.getElementById('info-location').setAttribute("href", feature.properties["Location link"])
+                // real estate specs
+                document.getElementById('info-bathroom').innerHTML=feature.properties['jumlah_kamar_mandi']
+                document.getElementById('info-bedroom').innerHTML=feature.properties['jumlah_kamar']
+                document.getElementById('info-furniture').innerHTML=feature.properties['Furniture']
+                document.getElementById('info-parking').innerHTML=feature.properties['luas_garasi']
+                // zone plan
+                document.getElementById('info-zoneplan').innerHTML=feature.properties['re.NAMOBJ']
+                document.getElementById('info-allowed').innerHTML=feature.properties['re.diizinkan']
+                document.getElementById('info-conditional').innerHTML=feature.properties['re.bersyarat']
+                document.getElementById('info-prohibited').innerHTML=feature.properties['re.dilarang']
             })
             map.on('mousemove', (e)=>{
                 let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate'] });

@@ -31,3 +31,13 @@
         #real-estate-list{
             overflow-y: scroll;height:60vh;
         }
+        .popup-icons{
+            width:20px;height:20px;
+        }
+        .popup-text{
+            font-size: small;
+            color:var(--primary);
+            align-content: center;
+            margin: 0;
+            padding: 0;
+        }
