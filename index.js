@@ -171,8 +171,16 @@
                 'source':'stats-grid',
                 'layout': {},
                 'paint': {
-                    'fill-color': '#088',
-                    'fill-opacity': 0.3
+                    'fill-color': [
+                        'case',
+                        ['==', ['get','harga.avg'], 0],'#fef0d9',
+                        ['<', ['get','harga.avg'], 3750000],'#fdcc8a',
+                        ['<', ['get','harga.avg'], 11461538],'#fc8d59',
+                        ['<', ['get','harga.avg'], 20238095],'#e34a33',
+                        ['>', ['get','harga.avg'], 20238095],'#b30000',
+                        '#fef0d9'
+                    ],
+                    'fill-opacity': 0.7
                 }
             })
             map.addLayer({
@@ -197,7 +205,6 @@
                     'fill-outline-color':'black'
                 }
             })
-            // populateList(datasample.features)
             map.on('click', function (e) {
                 let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate'] });
                 if (!features.length) {
@@ -209,7 +216,6 @@
                 infoPopup.style.display = "block";
                 infoPopup.style.backgroundColor = 'rgba(0,0,0,0.5)';
                 infoPopup.className="modal fade show";
-                console.log(feature)
                 title.innerHTML=feature.properties.Title
                 image.src=feature.properties.Cover
                 address.innerHTML=feature.properties.Address
@@ -246,4 +252,25 @@
                 let features = map.queryRenderedFeatures(e.point, { layers: ['lyr-real-estate']})
                 populateList(features)
             })
+            let gridColors=[["0 or Undefined",'#fef0d9'],["IDR 1 - 3,750,000",'#fdcc8a'],["IDR 3,750,000 - 11,461,538",'#fc8d59'],["IDR 11,461,538 - 20,238,095",'#e34a33'],[`> IDR 20,238,095`,'#b30000']],
+            zoneColors=[]
+            for (let index = 0; index < gridColors.length; index++) {
+                const element = gridColors[index];
+                let child=`<tr>
+                            <th class="popup-text lgd-table"><div class="rectangle-lgd" style="background-color:`+element[1]+`"></div></th>
+                            <td id="info-zoneplan" class="popup-text lgd-table">`+element[0]+`</td>
+                        </tr>`
+                document.getElementById("grid-lgd").insertAdjacentHTML( 'beforeend', child )
+            }
+            for (let index = 0; index < zonePlan.features.length; index++) {
+                const element = zonePlan.features[index].properties;
+                if(!zoneColors.includes(element.color)){
+                    zoneColors.push(element.color)
+                    let child=`<tr>
+                            <th class="popup-text lgd-table"><div class="rectangle-lgd" style="background-color:`+element.color+`"></div></th>
+                            <td id="info-zoneplan" class="popup-text lgd-table">`+element.NAMOBJ+`</td>
+                        </tr>`
+                    document.getElementById("zonePlan-lgd").insertAdjacentHTML( 'beforeend', child )
+                }
+            }
         })

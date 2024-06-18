@@ -1,43 +1,100 @@
 
-        :root {
-            --primary: #2C3E50;
-            --secondary: #1ABC9C;
-            --neutral1:#ECF0F1;
-            --neutral2:#7F8C8D;
-            --accent1:#F39C12;
-            --accent2:#27AE60;
-            --complementary:#8E44AD;
-        }
-        body{background-color:var(--neutral1);font-family: 'Lato', sans-serif;}
-        h1, h2, h3, h4, h5, h6 {font-family: 'Montserrat', sans-serif;}
-        button, .highlight {font-family: 'Roboto', sans-serif;}
-        .control-btn{background-color:var(--secondary);border-color:var(--primary)}
-        .control-btn:hover{background-color:var(--accent1)}
-        #dashboard-container{height:100vh;width:100vw;}
-        #map{height:100%;width:100%;}
-        #side-bar-btn{position:absolute;z-index:1000;right:0;top:.5em;
-            border-top-right-radius:0;border-bottom-right-radius: 0;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            background-color:var(--neutral1);border-color:var(--neutral1);
-        }
-        /* info label style */
-        #info-img{
-            height:180px;
-            /* width:100%; */
-        }
-        /* control style*/
-        .maplibregl-ctrl-geolocate{display:none!important;}
-        #real-estate-list{
-            overflow-y: scroll;height:60vh;
-        }
-        .popup-icons{
-            width:20px;height:20px;
-        }
-        .popup-text{
-            font-size: small;
-            color:var(--primary);
-            align-content: center;
-            margin: 0;
-            padding: 0;
-        }
+    :root {
+        --primary: #2C3E50;
+        --secondary: #1ABC9C;
+        --neutral1:#ECF0F1;
+        --neutral2:#7F8C8D;
+        --accent1:#F39C12;
+        --accent2:#27AE60;
+        --complementary:#8E44AD;
+    }
+    body{background-color:var(--neutral1);font-family: 'Lato', sans-serif;padding:0;margin:0;}
+    h1, h2, h3, h4, h5, h6 {font-family: 'Montserrat', sans-serif;}
+    button, .highlight {font-family: 'Roboto', sans-serif;}
+    .control-btn{background-color:var(--secondary);border-color:var(--primary)}
+    .control-btn:hover{background-color:var(--accent1)}
+    #dashboard-container{height:100vh;}
+    #map-container{padding:0.5;margin:0;height:100%;}
+    #bar-container{padding:0.5;margin:0;height:100%;}
+    #map{height:100%;width:100%;}
+    #side-bar-btn{position:absolute;z-index:1000;right:0;top:.5em;
+        border-top-right-radius:0;border-bottom-right-radius: 0;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        background-color:var(--neutral1);border-color:var(--neutral1);
+    }
+    #sidebar-content{max-height:100%;}
+    /* legend style */
+    .point-lgd{
+        width:7px;height:7px;border-radius:7px;border-color:#2C3E50;border:solid;background-color: #1ABC9C;padding:0;
+    }
+    .rectangle-lgd{width:15px;height:9px;}
+    /* info label style */
+    #info-img{
+        height:180px;
+        /* width:100%; */
+    }
+    /* control style*/
+    .maplibregl-ctrl-geolocate{display:none!important;}
+    #real-estate-list{
+        overflow-y: scroll;height:60vh;
+    }
+    #legend-container{
+        position:absolute;
+        z-index:1000;
+        width:20vw;
+        left:1em;bottom:1em;
+        border-radius: 5px;
+        background-color:rgba(255,255,255,.8);
+    }
+    #legend-accordion{
+        width:100%;
+        max-height:40vh;
+        overflow-y: scroll;
+        padding-bottom:10px;
+    }
+    .accordion-item,.accordion-button,.lgd-table,.accordion-collapse{
+        background-color: transparent!important;
+    }
+    .popup-icons{
+        width:20px;height:20px;
+    }
+    .popup-text{
+        font-size: small;
+        color:var(--primary);
+        align-content: center;
+        margin: 0;
+        padding: 0;
+    }
+@media screen and (max-width: 800px) {
+    /* #map{height:70vh;} */
+    .modal-dialog{
+        margin:auto;
+        width:98vw;
+    }
+    #map-container{width:100%;height:auto;}
+    #bar-container{width:100%;height:15vh;}
+    #sidebar-content{max-height:10vh;padding:5px}
+    .maplibregl-ctrl-bottom-right{display:none!important;}
+    #legend-container{
+        width:96vw;
+        left:2vw;bottom:.15em;
+    }
+    #legend-accordion{
+        max-height:25vh;
+    }
+    .maplibregl-ctrl-geocoder--input{
+        height:40px;
+    }
+    .maplibregl-ctrl-geocoder--icon-search{width:auto;height:auto;}
+    .popup-icons{
+        width:15px;height:15px;
+    }
+    .popup-text{
+        font-size: smaller;
+        color:var(--primary);
+        align-content: center;
+        margin: 0;
+        padding: 0;
+    }
+}
